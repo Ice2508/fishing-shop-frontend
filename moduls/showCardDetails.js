@@ -17,8 +17,8 @@ export default function showCardDetails(productCardsList, cardsArray, cart, navI
     const cardId = card.dataset.id;
     const selectedCard = cardsArray.find(card => card.id === +cardId);
     const imgUrl = selectedCard.productImg?.formats?.medium?.url
-        ? `http://localhost:1337${selectedCard.productImg.formats.thumbnail.url}`
-        : `http://localhost:1337${selectedCard.productImg?.url ?? ''}`;
+        ? `${selectedCard.productImg.formats.thumbnail.url}`
+        : `${selectedCard.productImg?.url ?? ''}`;
     
     console.log(imgUrl);
     console.log('Клик по карточке:', card);

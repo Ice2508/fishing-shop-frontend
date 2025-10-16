@@ -113,9 +113,8 @@ export function setupAddFormHandlers(addForm) {
     const hasFile = addForm.imgInput.files.length > 0;
     const selectedRadio = Array.from(addForm.categoryInput).find(r => r.checked)?.value;
     const characteristics = JSON.parse(localStorage.getItem('characteristics'));
-
+    loaderOn(addForm.loader); 
     try {
-      loaderOn(addForm.loader); // Show loader
       const addResult = await addCardsApi(
         addForm.titleInput.value,
         addForm.descriptionInput.value,
@@ -135,8 +134,7 @@ export function setupAddFormHandlers(addForm) {
       const updatedCards = await loadCards();
       localStorage.setItem('productList', JSON.stringify(updatedCards));
     } catch {
-      alert('Ошибка добавления товара'); // Show alert on error
-      addForm.errorSpan.textContent = 'Ошибка на сервере!!!';
+      addForm.errorSpan.textContent = 'Ошибка добавления товара!!!';
       setTimeout(() => addForm.errorSpan.textContent = '', 2200);
     } finally {
       loaderOff(addForm.loader); // Hide loader
