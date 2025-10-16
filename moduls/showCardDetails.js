@@ -16,9 +16,9 @@ export default function showCardDetails(productCardsList, cardsArray, cart, navI
     localStorage.setItem('category', currentCategory);
     const cardId = card.dataset.id;
     const selectedCard = cardsArray.find(card => card.id === +cardId);
-    const imgUrl = selectedCard.productImg?.formats?.medium?.url
-        ? `${selectedCard.productImg.formats.thumbnail.url}`
-        : `${selectedCard.productImg?.url ?? ''}`;
+  const imgUrl = selectedCard.productImg?.formats?.thumbnail?.url
+    ? selectedCard.productImg.formats.thumbnail.url
+    : selectedCard.productImg?.url || '';
     
     console.log(imgUrl);
     console.log('Клик по карточке:', card);
