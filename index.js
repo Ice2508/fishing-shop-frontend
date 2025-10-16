@@ -19,7 +19,7 @@ const productCardsTitle = document.querySelector('.product-cards__title');
 function renderAbout(productCardsTitle, productCardsList) {
   productCardsList.innerHTML = `<section class="about">
     <div class="about__img-wrap">
-      <img class="about__img" src="fon-about.webp">
+      <img class="about__img" src="img/fon-about.webp">
     </div>
     <div class="about__info">
       <p>Мы — команда увлечённых рыболовов, для которых рыбалка — не просто хобби, а образ жизни. 
