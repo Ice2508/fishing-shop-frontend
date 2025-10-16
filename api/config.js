@@ -1,3 +1,3 @@
-const BASE_URL = 'https://clever-dream-23d8575319.strapiapp.com';
+const BASE_URL = 'https://lazy-bugs-cough.loca.lt';
 export default BASE_URL;
 
