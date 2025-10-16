@@ -5,9 +5,9 @@ export default async function renderProductCards(category, productCardsList, car
     .filter(el => (!category || el.category === category) && el.isActive) // ← изменённая строка
     .sort((a, b) => a.title.localeCompare(b.title))
     .map(el => {
-  const imgUrl = el.productImg?.formats?.thumbnail?.url
-  ? el.productImg.formats.thumbnail.url
-  : el.productImg?.url ?? '';
+const imgUrl = el.productImg?.formats?.thumbnail?.url
+  ? BASE_URL + el.productImg.formats.thumbnail.url
+  : el.productImg?.url ? BASE_URL + el.productImg.url : '';
 
       return `
         <div class="product-cards__item" data-id="${el.id}">
