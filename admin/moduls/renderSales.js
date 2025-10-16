@@ -1,4 +1,4 @@
-
+import BASE_URL from '../api/config.js';
 
 
 
@@ -63,7 +63,7 @@ async function salesApi(currentValue, id, cards) {
       }
     };
 
-    const response = await fetch(`http://localhost:1337/api/prods/${id}?populate=productImg`, {
+    const response = await fetch(`${BASE_URL}/api/prods/${id}?populate=productImg`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
