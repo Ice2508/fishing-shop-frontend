@@ -6,8 +6,8 @@ export default async function renderProductCards(category, productCardsList, car
     .sort((a, b) => a.title.localeCompare(b.title))
     .map(el => {
 const imgUrl = el.productImg?.formats?.thumbnail?.url
-  ? BASE_URL + el.productImg.formats.thumbnail.url
-  : el.productImg?.url ? BASE_URL + el.productImg.url : '';
+  ? el.productImg.formats.thumbnail.url 
+  : el.productImg?.url || '';            
 
       return `
         <div class="product-cards__item" data-id="${el.id}">
