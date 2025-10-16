@@ -1,6 +1,7 @@
 import addCardsApi from '../api/addCardsApi.js';
 import loadCards from '../../api/loadCardsApi.js';
 import setupInputButtonState from './setupInputButtonState.js';
+import { loaderOn, loaderOff } from './loader.js'; // Import loader functions
 
 export function renderAddCards(actionsSettings) {
   actionsSettings.innerHTML = `
@@ -69,8 +70,9 @@ export function renderAddCards(actionsSettings) {
   const btnAdd = form.querySelector('.actions__btn--add');
   const btnClose = form.querySelector('.actions__btn--close');
   const errorSpan = form.querySelector('.actions__error-add');
+  const loader = document.querySelector('.loader-wrap'); // Assuming loader element exists in DOM
 
-  return { form, titleInput, descriptionInput, priceInput, imgInput, categoryInput, btnAdd, btnClose, errorSpan };
+  return { form, titleInput, descriptionInput, priceInput, imgInput, categoryInput, btnAdd, btnClose, errorSpan, loader };
 }
 
 function updateCharacteristicsList(actionsSettings) {
@@ -113,6 +115,7 @@ export function setupAddFormHandlers(addForm) {
     const characteristics = JSON.parse(localStorage.getItem('characteristics'));
 
     try {
+      loaderOn(addForm.loader); // Show loader
       const addResult = await addCardsApi(
         addForm.titleInput.value,
         addForm.descriptionInput.value,
@@ -132,8 +135,11 @@ export function setupAddFormHandlers(addForm) {
       const updatedCards = await loadCards();
       localStorage.setItem('productList', JSON.stringify(updatedCards));
     } catch {
+      alert('Ошибка добавления товара'); // Show alert on error
       addForm.errorSpan.textContent = 'Ошибка на сервере!!!';
       setTimeout(() => addForm.errorSpan.textContent = '', 2200);
+    } finally {
+      loaderOff(addForm.loader); // Hide loader
     }
   });
 
