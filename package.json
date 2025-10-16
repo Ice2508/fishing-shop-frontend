@@ -1,0 +1,11 @@
+{
+  "name": "internet-magazin",
+  "version": "1.0.0",
+  "description": "Локальный проект интернет-магазина",
+  "scripts": {
+    "start": "live-server ./"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}

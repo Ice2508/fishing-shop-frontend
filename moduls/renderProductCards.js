@@ -1,0 +1,35 @@
+
+
+
+
+
+
+
+
+
+export default async function renderProductCards(category, productCardsList, cardsArray) {
+  const productHtml = cardsArray
+    .filter(el => (!category || el.category === category) && el.isActive) // ← изменённая строка
+    .sort((a, b) => a.title.localeCompare(b.title))
+    .map(el => {
+      const imgUrl = el.productImg?.formats?.thumbnail?.url
+        ? `http://localhost:1337${el.productImg.formats.thumbnail.url}`
+        : `http://localhost:1337${el.productImg?.url ?? ''}`;
+
+      return `
+        <div class="product-cards__item" data-id="${el.id}">
+          <img class="product-cards__img" src="${imgUrl}" alt="${el.productImg?.alternativeText || el.title}">
+          <div class="product-cards__wrap">
+            <h2 class="product-cards__name">${el.title}</h2>
+            <div class="product-cards__price-wrap">
+              <p class="product-cards__price"><span>${el.price ?? 0} ₽</span></p>
+              <button class="product-cards__btn">в корзину</button>
+            </div>
+          </div>
+        </div>`;
+    })
+    .join('');
+
+  document.querySelector('.product-cards__title').textContent = "Каталог товаров";
+  productCardsList.innerHTML = productHtml;
+}
