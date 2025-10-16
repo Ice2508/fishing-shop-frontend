@@ -6,7 +6,7 @@ export default async function loadCards() {
    const loaderWrap = document.querySelector('.loader-wrap');
    try {
      loaderOn(loaderWrap); 
-     const response = await fetch(`${BASE_URL}/api/prod?populate=productImg&pagination[pageSize]=500`);
+     const response = await fetch(`${BASE_URL}/api/prods?populate=productImg&pagination[pageSize]=500`);
      if (!response.ok) {
       console.error('карточки товаров не получены от сервера!!!');
       return;
