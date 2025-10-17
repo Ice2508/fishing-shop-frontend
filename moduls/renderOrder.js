@@ -1,6 +1,6 @@
 import orderApi from '../api/orderApi.js';
 import loadCards from '../api/loadCardsApi.js';
-import { loaderOn, loaderOff } from '../adimin/moduls/loader.js'; 
+import { loaderOn, loaderOff } from '../admin/moduls/loader.js'; 
 
 export default async function renderOrder(navItems, productCardsList) {
   const loader = document.querySelector('.loader-wrap');

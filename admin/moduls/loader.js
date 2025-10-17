@@ -1,12 +1,3 @@
-
-
-
-
-
-
-
-'use strict';
-
 export function loaderOn(loader) {
 	loader.classList.add('loader-wrap--active');
 }
