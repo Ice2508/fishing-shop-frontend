@@ -826,7 +826,7 @@ a {
       gap: 15px;
    }
 
-   .footer__contacts::nth-child(even) {
+   .footer__contacts:first-child {
      gap: 13px;
      font-size: 13px;
    }
