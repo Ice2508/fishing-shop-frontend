@@ -8,7 +8,7 @@ import showCardDetails from './moduls/showCardDetails.js';
 import searchCards from './moduls/searchCards.js';
 import renderContacts from './moduls/renderContacts.js';
 import { renderAbout, showAboutInfo } from './moduls/about.js';
-
+import { loaderOn, loaderOff } from './admin/moduls/loader.js';
 
 const navItems = document.querySelectorAll('.nav__item');
 const productCardsList = document.querySelector('.product-cards__list');
@@ -66,37 +66,47 @@ window.addEventListener('scroll', () => {
 // Инициализация страницы
 document.addEventListener('DOMContentLoaded', async () => {
   const isFirstLoad = !localStorage.getItem('scrollPosition');
+  const loader = document.querySelector('.loader-wrap'); // получаем элемент
 
-  const cardsArray = await loadCards();
-  await renderContacts();
-  categoriesFilter(navItems, productCardsList, cardsArray);
-  searchCards(searchBtn, productCardsList, navItems); 
-  renderOrderClick();
-  showAboutInfo(productCardsTitle, contactsItem, productCardsList, navItems);
+  try {
+    loaderOn(loader); 
 
-  const hash = window.location.hash.replace('#', '');
-  if (hash === 'about') {
-    renderAbout(productCardsTitle, productCardsList, navItems);
-    return; // выходим, карточки не рендерим
-  }
+    const cardsArray = await loadCards(); 
+    await renderContacts();
+    categoriesFilter(navItems, productCardsList, cardsArray);
+    searchCards(searchBtn, productCardsList, navItems); 
+    renderOrderClick();
+    showAboutInfo(productCardsTitle, contactsItem, productCardsList, navItems);
 
-  const loadCategory = localStorage.getItem('category');
-  if(!loadCategory) {
-    navItems[0].classList.add('nav__item-active');
-    renderProductCards('rods', productCardsList, cardsArray);
-    showCardDetails(productCardsList, cardsArray, cart, navItems, productCardsTitle);
-  } else if(loadCategory === 'cart') {
-    renderOrder(navItems, productCardsList);
-  } else {
-    renderProductCards(loadCategory, productCardsList, cardsArray);
-    showCardDetails(productCardsList, cardsArray, cart, navItems, productCardsTitle);
-    const navActive = localStorage.getItem('nav-active');
-    if(navActive) navItems[navActive].classList.add('nav__item-active');
-  }
+    const hash = window.location.hash.replace('#', '');
+    if (hash === 'about') {
+      renderAbout(productCardsTitle, productCardsList, navItems);
+      return; // выходим, карточки не рендерим
+    }
 
-  // Скролл наверх при первой загрузке
-  if (isFirstLoad) {
-    window.scrollTo(0, 0);
+    const loadCategory = localStorage.getItem('category');
+    if(!loadCategory) {
+      navItems[0].classList.add('nav__item-active');
+      renderProductCards('rods', productCardsList, cardsArray);
+      showCardDetails(productCardsList, cardsArray, cart, navItems, productCardsTitle);
+    } else if(loadCategory === 'cart') {
+      renderOrder(navItems, productCardsList);
+    } else {
+      renderProductCards(loadCategory, productCardsList, cardsArray);
+      showCardDetails(productCardsList, cardsArray, cart, navItems, productCardsTitle);
+      const navActive = localStorage.getItem('nav-active');
+      if(navActive) navItems[navActive].classList.add('nav__item-active');
+    }
+
+    // Скролл наверх при первой загрузке
+    if (isFirstLoad) {
+      window.scrollTo(0, 0);
+    }
+
+  } catch (err) {
+    console.error('Ошибка при инициализации страницы:', err);
+  } finally {
+    loaderOff(loader); // выключаем загрузчик в любом случае
   }
 });
 
