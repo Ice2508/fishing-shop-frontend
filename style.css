@@ -825,6 +825,11 @@ a {
    .footer__contacts {
       gap: 15px;
    }
+
+   .footer__contacts::nth-child(even) {
+     gap: 13px;
+     font-size: 13px;
+   }
 }
 
 @media (max-width: 400px) {
