@@ -1,5 +1,5 @@
 export function renderAbout(productCardsTitle, productCardsList) {
-  window.scrollTo(0, 240);
+  window.scrollTo(0, 220);
   productCardsList.innerHTML = `<section class="about">
     <div class="about__img-wrap">
       <img class="about__img" src="img/fon-about.webp">
