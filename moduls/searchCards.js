@@ -2,7 +2,8 @@ import renderProductCards from './renderProductCards.js';
 
 export default function searchCards(searchBtn, productCardsList, navItems) {
   const productList = JSON.parse(localStorage.getItem('productList')) || [];
-  searchBtn.addEventListener('click', () => {
+  searchBtn.addEventListener('click', (e) => {
+    e.preventDefault();
     const searchInp = document.querySelector('.header__search-inp').value.trim().toLowerCase();
     if (!searchInp) return;
     localStorage.removeItem('category');
