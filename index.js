@@ -17,6 +17,7 @@ const searchBtn = document.querySelector('.header__search-btn');
 const contactsItem = document.querySelectorAll('.footer__contacts-item');
 const productCardsTitle = document.querySelector('.product-cards__title');
 
+
 // Инициализация корзины
 storeOrder(productCardsList, cart);
 
@@ -71,7 +72,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   categoriesFilter(navItems, productCardsList, cardsArray);
   searchCards(searchBtn, productCardsList, navItems); 
   renderOrderClick();
-  showAboutInfo(productCardsTitle, contactsItem, productCardsList);
+  showAboutInfo(productCardsTitle, contactsItem, productCardsList, navItems);
 
   const hash = window.location.hash.replace('#', '');
   if (hash === 'about') {
@@ -108,3 +109,4 @@ window.addEventListener('load', () => {
   }
 });
 
+// === Обработка изменения хеша ===
