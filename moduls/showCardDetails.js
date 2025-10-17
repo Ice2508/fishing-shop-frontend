@@ -4,7 +4,7 @@ import renderProductCards from './renderProductCards.js';
 
 export default function showCardDetails(productCardsList, cardsArray, cart, navItems, productCardsTitle) {
   productCardsList.addEventListener('click', (event) => {
-    window.scrollTo(0, 240);
+    window.scrollTo(0, 200);
     const navActive = localStorage.getItem('nav-active');
     if (navActive) navItems[navActive].classList.remove('nav__item-active');
     const card = event.target.closest('.product-cards__item');

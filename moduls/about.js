@@ -22,6 +22,7 @@ export function renderAbout(productCardsTitle, productCardsList, navItems) {
 
 export function showAboutInfo(productCardsTitle, contactsItem, productCardsList, navItems) {
   contactsItem[0].addEventListener('click', () => {
+    window.scrollTo(0, 200);
     window.location.hash = 'about';
     renderAbout(productCardsTitle, productCardsList, navItems);
   });
