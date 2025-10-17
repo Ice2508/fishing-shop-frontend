@@ -7,6 +7,8 @@ import renderOrder from './moduls/renderOrder.js';
 import showCardDetails from './moduls/showCardDetails.js';
 import searchCards from './moduls/searchCards.js';
 import renderContacts from './moduls/renderContacts.js';
+import { renderAbout, showAboutInfo } from './moduls/about.js';
+
 
 const navItems = document.querySelectorAll('.nav__item');
 const productCardsList = document.querySelector('.product-cards__list');
@@ -14,37 +16,6 @@ const cart = document.querySelector('.header__cart');
 const searchBtn = document.querySelector('.header__search-btn');
 const contactsItem = document.querySelectorAll('.footer__contacts-item');
 const productCardsTitle = document.querySelector('.product-cards__title');
-
-// Загрузка контактов
-function renderAbout(productCardsTitle, productCardsList) {
-  productCardsList.innerHTML = `<section class="about">
-    <div class="about__img-wrap">
-      <img class="about__img" src="img/fon-about.webp">
-    </div>
-    <div class="about__info">
-      <p>Мы — команда увлечённых рыболовов, для которых рыбалка — не просто хобби, а образ жизни. 
-      Каждый из нас знает, что настоящая рыбалка начинается с правильного снаряжения. 
-      Именно поэтому мы создали наш интернет-магазин — место, где каждый любитель и 
-      профессионал найдёт всё необходимое для удачного улова.</p>
-      <p>Наша цель — сделать рыбалку доступной, комфортной и по-настоящему вдохновляющей. 
-      Мы тщательно подбираем ассортимент, тестируем снасти и оборудование, чтобы предложить 
-      вам только проверенные товары, которым можно доверять в любых условиях.</p>
-      <p>С нами вы всегда будете готовы к новым рыболовным приключениям, будь то утренний клёв на озере 
-      или охота за трофейной щукой на реке.</p>
-      <p><strong>Добро пожаловать в наш мир рыбалки! 🌊</strong></p>
-    </div>
-  </section>`;
-  productCardsTitle.innerHTML = 'о нас';
-  navItems.forEach(el => el.classList.remove('nav__item-active'));
-}
-
-// Навешиваем обработчик клика
-function showAboutInfo(productCardsTitle, contactsItem, productCardsList) {
-  contactsItem[0].addEventListener('click', () => {
-    window.location.hash = 'about';
-    renderAbout(productCardsTitle, productCardsList);
-  });
-}
 
 // Инициализация корзины
 storeOrder(productCardsList, cart);
@@ -137,4 +108,3 @@ window.addEventListener('load', () => {
   }
 });
 
-// === Обработка изменения хеша ===
