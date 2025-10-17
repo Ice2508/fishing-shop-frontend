@@ -22,11 +22,6 @@ h1, h2, h3 {
   font-size: inherit;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
-
 body {
   background: #0d6453;
   background-size: cover;

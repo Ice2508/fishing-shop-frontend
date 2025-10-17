@@ -1,7 +1,7 @@
 
-
-
-
+html {
+  scroll-behavior: smooth;
+}
 
 input {
 	padding: 5px 8px;
