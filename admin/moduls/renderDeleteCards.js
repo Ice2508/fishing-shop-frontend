@@ -28,17 +28,6 @@ export default  async function renderDeleteCards(cards, actionsSettings) {
                 <span><b>${card.price} ₽</b></span></span>
                 <button class="actions__cards-remove">&times;</button></li>`;
     }).join('');
-    actionsSettings.innerHTML = `
-    <ul class="actions__cards-list">${strHtml}</ul>
-    <div class="actions__pagination-wrap">
-        <button class="actions__pagination">&#8656; предыдущая</button>
-        <button class="actions__pagination">следующая &#8658;</button>
-    </div>
-    `;
-    const paginationBtn = document.querySelectorAll('.actions__pagination');
-    if (cards.length < 26) {
-         paginationBtn[0].classList.add('actions__pagination-disabled');
-         paginationBtn[1].classList.add('actions__pagination-disabled');
-    }
+    actionsSettings.innerHTML = `<ul class="actions__cards-list">${strHtml}</ul>`
     setupDeleteCardHandlers(cards);
 }

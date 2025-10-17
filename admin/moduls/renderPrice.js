@@ -20,12 +20,7 @@ export default function renderPrice(actionsSettings, cards) {
     `).join('');
 
     actionsSettings.innerHTML = `
-        <ul class="actions__cards-list">${strHtml}</ul>
-        <div class="actions__pagination-wrap">
-           <button class="actions__pagination">&#8656; предыдущая</button>
-           <button class="actions__pagination">следующая &#8658;</button>
-        </div>
-        `;
+        <ul class="actions__cards-list">${strHtml}</ul>`;
 
     const priceInputs = actionsSettings.querySelectorAll('.actions__price-inp');
     const priceButtons = actionsSettings.querySelectorAll('.actions__price-btn');

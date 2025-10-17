@@ -16,11 +16,7 @@ export default async function renderSales(actionsSettings, cards) {
               </li>`;
     }).join('');
 
-    actionsSettings.innerHTML = `<ul class="actions__cards-list">${strHtml}</ul>
-      <div class="actions__pagination-wrap">
-        <button class="actions__pagination">&#8656; предыдущая</button>
-        <button class="actions__pagination">следующая &#8658;</button>
-      </div>`;
+    actionsSettings.innerHTML = `<ul class="actions__cards-list">${strHtml}</ul>`;
 
     const loader = document.querySelector('.loader-wrap'); // assuming loader exists
 
