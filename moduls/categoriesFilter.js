@@ -20,6 +20,7 @@ export default function categoriesFilter(navItem, productCardsList, cardsArray) 
       window.location.hash = category;
       localStorage.setItem('category', category);
       await renderProductCards(category, productCardsList, cardsArray);
+      window.scrollTo(0, 240);
     });
   });
 }
