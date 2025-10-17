@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const hash = window.location.hash.replace('#', '');
   if (hash === 'about') {
-    renderAbout(productCardsTitle, productCardsList);
+    renderAbout(productCardsTitle, productCardsList, navItems);
     return; // выходим, карточки не рендерим
   }
 
