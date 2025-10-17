@@ -1,6 +1,5 @@
 import switchTab from './switchTab.js';
 import { authUser } from '../api/authApi.js';
-import { loaderOn, loaderOff } from './loader.js'; // 
 
 export default function authAdmin(popupOverlay, adminDashboardItems, titleElement, actionsEl) {
   const popupBtn = document.querySelectorAll('.popup__btn');
@@ -32,8 +31,6 @@ export default function authAdmin(popupOverlay, adminDashboardItems, titleElemen
       return;
     }
 
-    loaderOn(loader);
-
     try {
       await authUser(login, password);
       popupOverlay.classList.add('popup__auth-ok');
@@ -43,9 +40,7 @@ export default function authAdmin(popupOverlay, adminDashboardItems, titleElemen
       noAuthMsg.textContent = 'Неверный логин или пароль!';
       noAuthMsg.style.opacity = '1';
       setTimeout(() => (noAuthMsg.style.opacity = '0'), 3000);
-    } finally {
-      loaderOff(loader); 
-    }
+    } 
   });
 
   // 🔹 Если токен уже есть — сразу показываем админку
