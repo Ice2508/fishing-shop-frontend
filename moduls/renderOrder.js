@@ -111,7 +111,7 @@ function orderSubmit(btnSubmit, productCardsList) {
     try {
       const res = await orderApi(order, address, phone);
       localStorage.removeItem('order');
-      productCardsList.innerHTML = `<section class="order" style="padding: 40px">
+      productCardsList.innerHTML = `<section class="order">
                                        <div class="order__ok">
                                           <p><strong>Заказ №${res.data.id} успешно оформлен✅</strong></p>
                                           <p>Обязательно укажите при оплате номер заказа!!!</p>
