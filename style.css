@@ -818,6 +818,10 @@ a {
       gap: 15px;
     }
 
+    .order__ok {
+      gap: 15px;
+    }
+
     .footer {
       font-size: 14px;
       padding: 15px 3px;
