@@ -820,15 +820,17 @@ a {
 
     .footer {
       font-size: 14px;
+      padding: 15px 3px;
    }
 
    .footer__contacts {
       gap: 15px;
    }
-
-   .footer__contacts:first-child {
-     gap: 13px;
+  
+  .footer__contacts--media {
+     gap: 10px;
      font-size: 13px;
+
    }
 }
 
