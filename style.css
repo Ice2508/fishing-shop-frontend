@@ -58,8 +58,9 @@ a {
   height: 100vh;
   justify-content: center;
   align-items: center;
-  display: flex;
+  display: none;
   z-index: 9999;
+  bagraund-color: rgba(255, 255, 255, 0.8);
 }
 
 .loader {
@@ -175,7 +176,7 @@ a {
 }
 
 .header__search-btn {
-  height: 40px;
+  height: 42px;
   width: 20%;
   background: #d57e27;
   cursor: pointer;
@@ -837,8 +838,7 @@ a {
   .footer__contacts--media {
      gap: 10px;
      font-size: 13px;
-
-   }
+  }
 }
 
 @media (max-width: 400px) {
@@ -863,4 +863,14 @@ a {
    .order__item {
       font-size: 15px;
    }
+
+   .footer {
+      padding: 15px 1px;
+   }
+
+   .footer__contacts--media {
+     gap: 8px;
+     font-size: 13px;
+  }
+
 }
