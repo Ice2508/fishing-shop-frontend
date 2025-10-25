@@ -1,2 +1,2 @@
-const BASE_URL = 'https://clever-dream-23d8575319.strapiapp.com';
+const BASE_URL = 'http://127.0.0.1:1337';
 export default BASE_URL;

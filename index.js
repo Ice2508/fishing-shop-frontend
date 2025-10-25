@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const cardsArray = await loadCards(); 
     await renderContacts();
     categoriesFilter(navItems, productCardsList, cardsArray);
-    searchCards(searchBtn, productCardsList, navItems); 
+    searchCards(searchBtn, productCardsList, navItems, cardsArray); 
     renderOrderClick();
     showAboutInfo(productCardsTitle, contactsItem, productCardsList, navItems);
 
