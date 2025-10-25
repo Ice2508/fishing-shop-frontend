@@ -19,8 +19,8 @@ export function renderAddCards(actionsSettings) {
            </div>
            <ul class="actions__characteristics-list"></ul>
           <div class="actions__add-inp-wrap actions__add-inp-wrap--variant"> 
-             <label for="variants">Необязательное поле: укажите через запятую, например: 40,41,42 или красный, синий</label>
-             <input id="variants" class="actions__variants-inp" placeholder="цвета, размеры и т.д., ">
+             <label for="variants">Необязательное поле: через запятую, цвета, размеры и т.д.</label>
+             <input id="variants" class="actions__variants-inp" placeholder="например: 40,41,42 или красный, синий">
           <div class="actions__add-inp-wrap">
         </div>
         <div class="actions__add-settings-wrap">

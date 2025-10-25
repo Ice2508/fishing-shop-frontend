@@ -23,11 +23,9 @@ export default function showCardDetails(productCardsList, cardsArray, cart, navI
     const BASE_URL = 'http://localhost:1337';
     console.log(selectedCard)
 
-   const imgUrl = selectedCard.productImg?.formats?.thumbnail?.url
-  ? `${BASE_URL}${selectedCard.productImg.formats.thumbnail.url}`
-  : selectedCard.productImg?.url
-    ? `${BASE_URL}${selectedCard.productImg.url}`
-    : '';
+    const imgUrl = el.productImg?.formats?.small?.url
+      ? el.productImg.formats.small.url
+      : el.productImg?.url || '';
     console.log(imgUrl);
     console.log('Клик по карточке:', card);
     let characteristicsHtml = '';
