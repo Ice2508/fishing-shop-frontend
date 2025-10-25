@@ -1,6 +1,6 @@
 import BASE_URL from './config.js';
 
-export default async function addCardsApi(actionsInpTitle, actionsDescription,  actionInpPrice, selectedRadio, actionInpImg, characteristics) {
+export default async function addCardsApi(actionsInpTitle, actionsDescription,  actionInpPrice, selectedRadio, actionInpImg, characteristics, variants) {
 	const response = await fetch(`${BASE_URL}/api/prods`, {
         method: 'POST',
         headers: { 
@@ -13,7 +13,8 @@ export default async function addCardsApi(actionsInpTitle, actionsDescription,  
             description: actionsDescription, 
             price: actionInpPrice,
             category: selectedRadio,
-            characteristics
+            characteristics,
+            variants
             }
         })
     })

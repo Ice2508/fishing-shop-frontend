@@ -1,6 +1,7 @@
 import orderApi from '../api/orderApi.js';
 import loadCards from '../api/loadCardsApi.js';
 import { loaderOn, loaderOff } from '../admin/moduls/loader.js'; 
+import countCart from './countCart.js';
 
 export default async function renderOrder(navItems, productCardsList) {
   const loader = document.querySelector('.loader-wrap');
@@ -27,7 +28,8 @@ export default async function renderOrder(navItems, productCardsList) {
     return {
       name: el.name,
       price: apiItem && apiItem.isActive ? `${apiItem.price} ₽` : null,
-      isAvailable: apiItem && apiItem.isActive
+      isAvailable: apiItem && apiItem.isActive,
+      variant: el.variant
     };
   });
 
@@ -37,7 +39,7 @@ export default async function renderOrder(navItems, productCardsList) {
   const orderHTML = updatedOrder.length === 0
     ? `<li style="padding: 5px">нет выбранных товаров в корзине</li>`
     : updatedOrder.map((el, i) => {
-        const displayName = el.isAvailable ? el.name : `<span style="color:grey">${el.name} (Нет в наличии)</span>`;
+        const displayName = el.isAvailable ? el.name + ', ' + el.variant : `<span style="color:grey">${el.name} (Нет в наличии)</span>`;
         const displayPrice = el.isAvailable ? el.price : '';
         return `<li class="order__item" data-index=${i}>
                   <span class="order__name">${displayName}</span>
@@ -45,8 +47,8 @@ export default async function renderOrder(navItems, productCardsList) {
                   <span class="order__close">&times;</span>
                 </li>`;
       }).join('');
-
-  productCardsList.innerHTML = `<section class="order">
+    console.log(updatedOrder);
+   productCardsList.innerHTML = `<section class="order">
     <ul class="order__list">${orderHTML}</ul>
     <div class="order__wrap">
       <div>
@@ -81,7 +83,6 @@ export default async function renderOrder(navItems, productCardsList) {
   phoneInput.addEventListener('input', updateButtonState);
 
   orderSubmit(btnSubmit, productCardsList);
-
   loaderOff(loader); // выключаем loader после полной отрисовки
 }
 
@@ -90,6 +91,7 @@ function orderSubmit(btnSubmit, productCardsList) {
     const order = JSON.parse(localStorage.getItem('order')) || [];
     const address = document.querySelector('.order__input--adress').value.trim();
     const phone = document.querySelector('.order__input--phone').value.trim();
+    console.log(order);
     if (!address || !phone || order.length === 0) return;
 
     try {
@@ -104,6 +106,7 @@ function orderSubmit(btnSubmit, productCardsList) {
         </div>
       </section>`;
       console.log(res.data.id);
+      countCart();
     } catch (error) {
       productCardsList.innerHTML = `<section class="order"><p>Заказ не удалось оформить❌</p></section>`;
       console.error(error);

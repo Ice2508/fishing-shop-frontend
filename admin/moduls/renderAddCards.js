@@ -18,6 +18,10 @@ export function renderAddCards(actionsSettings) {
               <button class="actions__characteristics-btn" type="button">ввод</button>
            </div>
            <ul class="actions__characteristics-list"></ul>
+          <div class="actions__add-inp-wrap actions__add-inp-wrap--variant"> 
+             <label for="variants">Необязательное поле: укажите через запятую, например: 40,41,42 или красный, синий</label>
+             <input id="variants" class="actions__variants-inp" placeholder="цвета, размеры и т.д., ">
+          <div class="actions__add-inp-wrap">
         </div>
         <div class="actions__add-settings-wrap">
            <label for="price">Цена</label>
@@ -70,9 +74,10 @@ export function renderAddCards(actionsSettings) {
   const btnAdd = form.querySelector('.actions__btn--add');
   const btnClose = form.querySelector('.actions__btn--close');
   const errorSpan = form.querySelector('.actions__error-add');
-  const loader = document.querySelector('.loader-wrap'); // Assuming loader element exists in DOM
+  const loader = document.querySelector('.loader-wrap'); 
+  const variantsInput = form.querySelector('.actions__variants-inp');
 
-  return { form, titleInput, descriptionInput, priceInput, imgInput, categoryInput, btnAdd, btnClose, errorSpan, loader };
+  return { form, titleInput, descriptionInput, priceInput, imgInput, categoryInput, btnAdd, btnClose, errorSpan, loader, variantsInput };
 }
 
 function updateCharacteristicsList(actionsSettings) {
@@ -113,6 +118,11 @@ export function setupAddFormHandlers(addForm) {
     const hasFile = addForm.imgInput.files.length > 0;
     const selectedRadio = Array.from(addForm.categoryInput).find(r => r.checked)?.value;
     const characteristics = JSON.parse(localStorage.getItem('characteristics'));
+    const variantsInputString = addForm.variantsInput.value;
+    const variantsInputArray = variantsInputString
+    .split(',')
+    .map(v => v.trim())
+    .filter(Boolean);
     loaderOn(addForm.loader); 
     try {
       const addResult = await addCardsApi(
@@ -121,7 +131,8 @@ export function setupAddFormHandlers(addForm) {
         addForm.priceInput.value,
         selectedRadio,
         addForm.imgInput.files[0],
-        characteristics
+        characteristics,
+        variantsInputArray 
       );
       localStorage.removeItem('characteristics');
       updateCharacteristicsList(addForm.form);

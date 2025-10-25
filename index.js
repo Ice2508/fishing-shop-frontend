@@ -9,6 +9,8 @@ import searchCards from './moduls/searchCards.js';
 import renderContacts from './moduls/renderContacts.js';
 import { renderAbout, showAboutInfo } from './moduls/about.js';
 import { loaderOn, loaderOff } from './admin/moduls/loader.js';
+import countCart from './moduls/countCart.js';
+
 
 const navItems = document.querySelectorAll('.nav__item');
 const productCardsList = document.querySelector('.product-cards__list');
@@ -16,7 +18,7 @@ const cart = document.querySelector('.header__cart');
 const searchBtn = document.querySelector('.header__search-btn');
 const contactsItem = document.querySelectorAll('.footer__contacts-item');
 const productCardsTitle = document.querySelector('.product-cards__title');
-
+let countCartEl = document.querySelector('.header__cart-count');
 
 // Инициализация корзины
 storeOrder(productCardsList, cart);
@@ -50,6 +52,15 @@ productCardsList.addEventListener('click', (e) => {
     const orderItems = document.querySelectorAll('.order__item');
     orderItems.forEach((item, i) => item.dataset.index = i);
   }
+   let count = +countCartEl.textContent;
+   console.log(count)
+   if (count === 1) {
+    count--;
+    countCartEl.style.opacity = '0';
+    return;
+   }
+    count--;
+    countCartEl.textContent = count;
 });
 
 // Показ корзины по клику
@@ -74,10 +85,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     const cardsArray = await loadCards(); 
     await renderContacts();
     categoriesFilter(navItems, productCardsList, cardsArray);
-    searchCards(searchBtn, productCardsList, navItems, cardsArray); 
+    searchCards(searchBtn, productCardsList, navItems); 
     renderOrderClick();
     showAboutInfo(productCardsTitle, contactsItem, productCardsList, navItems);
-
+    countCart();
     const hash = window.location.hash.replace('#', '');
     if (hash === 'about') {
       renderAbout(productCardsTitle, productCardsList, navItems);
@@ -119,4 +130,4 @@ window.addEventListener('load', () => {
   }
 });
 
-// === Обработка изменения хеша ===
+

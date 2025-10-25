@@ -178,6 +178,10 @@ input {
 	gap: 3px;
 }
 
+.actions__add-inp-wrap--variant {
+	margin-top: 10px;
+}
+
 .actions__descriptions {
 	resize: none;
 	padding: 5px 10px;
@@ -232,7 +236,6 @@ input {
 	gap: 3px;
 	height: 24px;
 }
-
 
 .actions__characteristics-add {
     display: flex;

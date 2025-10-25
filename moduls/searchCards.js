@@ -1,19 +1,14 @@
 import renderProductCards from './renderProductCards.js';
 
-export default function searchCards(searchBtn, productCardsList, navItems, cardsArray) {
+export default function searchCards(searchBtn, productCardsList, navItems) {
+  const productList = JSON.parse(localStorage.getItem('productList')) || [];
   searchBtn.addEventListener('click', (e) => {
     e.preventDefault();
     const searchInp = document.querySelector('.header__search-inp').value.trim().toLowerCase();
     if (!searchInp) return;
-
-    // чистим категории и активный нав
     localStorage.removeItem('category');
     localStorage.removeItem('nav-active');
     navItems.forEach(item => item.classList.remove('nav__item-active'));
-
-    // берём из localStorage или fallback на searchArray
-    const productList = cardsArray;
-
     const productSearch = productList.filter(el =>
       el.title.toLowerCase().includes(searchInp)
     );

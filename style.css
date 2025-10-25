@@ -34,6 +34,17 @@ a {
   text-decoration: none;
 }
 
+.page-blocker {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 999;
+  display: none;
+  background: rgba(0, 0, 0, 0.3);
+}
+
 .header__up {
   color: green;
   background: whitesmoke;
@@ -138,12 +149,29 @@ a {
   align-items: center;
   cursor: pointer;
   margin-left: 15px;
-
+  position: relative;
 }
 
 .header__cart-wrap:hover {
   outline: 3px solid white;
 
+}
+
+.header__cart-count {
+  position: absolute;
+  height: 26px;
+  width: 26px;
+  border-radius: 50%;
+  background-color: whitesmoke;
+  top: -15px;
+  left: -8px;
+  border: 2px solid orange;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.5s ease; 
 }
 
 .header__cart {
@@ -288,6 +316,7 @@ a {
 }
 
 .product-cards__item {
+  position: relative;
   padding: 15px;
   width: calc(25% - 15px);
   min-height: 296px;
@@ -297,6 +326,45 @@ a {
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
   
+}
+
+.product-cards__item-popup-variants {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  width: calc(100% - 30px);
+  z-index: 1000;
+  background: #0d6453;
+  padding: 6px;
+  outline: 2px solid orange;
+  outline-offset: -3px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  /* 🔹 Скрытое состояние */
+  opacity: 0;
+  transform: translateX(-120%);
+  pointer-events: none;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.product-cards__item-popup-variants-btn {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.product-cards__item-popup-variants--active {
+  opacity: 1;
+  transform: translateX(15px);
+  pointer-events: auto;
+}
+
+.product-cards__item-popup-variants-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
 }
 
 .product-cards__description {
@@ -439,6 +507,23 @@ a {
 .product-cards__show-details-list {
   list-style-position: outside;
   padding-left: 1em;
+}
+
+.product-cards__show-details-variant {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+}
+
+.product-cards__show-details-variant-btn {
+  padding: 2px 4px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.product-cards__show-details-variant-btn--active {
+  background: #043d2e;
+  color: white;
 }
 
 /*Заказ*/
@@ -701,7 +786,13 @@ a {
       padding: 10px;
    }
 
-  
+    .product-cards__item-popup-variants {
+      width: calc(100% - 20px);
+   }
+
+   .product-cards__item-popup-variants--active {
+      transform: translateX(10px);
+   }
 
    .product-cards__show-details-info {
       width: calc(100% - 250px);
@@ -790,7 +881,7 @@ a {
    .product-cards__item {
       width: calc(50% - 5px);
    }
-    
+
    .product-cards__show-details {
       padding: 20px 20px 80px;
       flex-direction: column;

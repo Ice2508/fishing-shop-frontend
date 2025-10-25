@@ -1,11 +1,5 @@
 
 
-
-
-
-
-
-
 import setupInputButtonState from './setupInputButtonState.js';
 import { getOrdersApi, getTracksApi, trackSubmitApi, updateOrderStatus } from '../api/ordersApi.js';
 import { paginationFn } from './pagination.js';
@@ -13,6 +7,7 @@ import { paginationFn } from './pagination.js';
 export default async function renderOrder(actionsSettings) {
   const pagination = JSON.parse(localStorage.getItem('pagination'));
   const orders = await getOrdersApi(pagination.order);
+  console.log(orders);
   const statusArray = ['not_sent', 'sent', 'delivered', 'returned', 'canceled'];
   const statusDisplayMap = {
     not_sent: 'Не отправлен 📦',
@@ -25,7 +20,17 @@ export default async function renderOrder(actionsSettings) {
   actionsSettings.innerHTML = `
     <section class="actions__order">
       ${orders.map(order => {
-        const products = order.items || order.name.map(i => ({ name: i.name, price: i.price ? i.price.replace(' ₽','') : 'нет цены' }));
+        const products = (order.items || order.name.map(i => ({
+          name: i.name,
+          price: i.price ? i.price.replace(' ₽','') : 'нет цены'
+      }))).map((item, index) => {
+     const variant = order.name?.[index]?.variant;
+     return {
+      ...item,
+    name: variant ? `${item.name} (${variant})` : item.name
+    };
+  });
+        console.log(products);
         const total = products.reduce((sum, p) => sum + (isNaN(+p.price) ? 0 : +p.price), 0);
         return `<div class="actions__order-wrap" data-document-id="${order.documentId}">
           <div class="actions__order-title-wrap"><h3>Заказ №${order.id}</h3><button class="actions__order-btn">Изменить статус</button></div>
@@ -39,7 +44,7 @@ export default async function renderOrder(actionsSettings) {
             </div>
           </div>
           <ol class="actions__order-list">
-            ${products.map(p => `<li class="actions__order-item"><span>${p.name}</span><span>${p.price} ₽</span></li>`).join('')}
+            ${products.map(p => `<li class="actions__order-item"><span>${p.name} </span><span>${p.price} ₽</span></li>`).join('')}
           </ol>
           <div class="actions__order-total">
             <strong>Итого: ${total} ₽</strong>
