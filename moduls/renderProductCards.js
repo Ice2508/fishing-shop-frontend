@@ -1,4 +1,3 @@
-import BASE_URL from '../api/config.js';
 import { variantsBtnState } from './showCardDetails.js';
 
 export default async function renderProductCards(category, productCardsList, cardsArray) {
@@ -6,13 +5,9 @@ export default async function renderProductCards(category, productCardsList, car
     .filter(el => (!category || el.category === category) && el.isActive)
     .sort((a, b) => a.title.localeCompare(b.title))
     .map(el => {
-      // формируем URL картинки с учётом Strapi Cloud
       const imgUrl = el.productImg?.formats?.thumbnail?.url
-        ? `${BASE_URL}${el.productImg.formats.thumbnail.url}`
-        : el.productImg?.url
-          ? `${BASE_URL}${el.productImg.url}`
-          : '';
-
+      ? el.productImg.formats.thumbnail.url
+      : el.productImg?.url || '';
       // рендерим варианты
       let strVariants = '';
       if (Array.isArray(el.variants) && el.variants.length > 0) {
