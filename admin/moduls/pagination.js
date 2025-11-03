@@ -1,17 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function getPageCount() {
     let total;
     if (sessionStorage.getItem('savedTab') === 'order') {    

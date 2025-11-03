@@ -1,7 +1,3 @@
-
-
-
-
 import renderProductCards from './renderProductCards.js';
 
 function setActiveNav(navItem, index) {
@@ -16,10 +12,13 @@ export default function categoriesFilter(navItem, productCardsList, cardsArray) 
     item.addEventListener('click', async () => {
       setActiveNav(navItem, i);
       localStorage.setItem('nav-active', i);
+
       const category = item.dataset.categories;
       window.location.hash = category;
       localStorage.setItem('category', category);
+
       await renderProductCards(category, productCardsList, cardsArray);
+
       window.scrollTo(0, 200);
     });
   });

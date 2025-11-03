@@ -1,74 +1,102 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Рыбалка</title>
-	<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Учебный проект интернет-магазина рыболовных снастей. Разработано для портфолио фронтенд-разработчика.">
+  <meta name="author" content="Сергей Хрящев">
+  <title>Рыбалка</title>
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link rel="stylesheet" href="style.css">
+  <meta property="og:title" content="Fishing Shop — учебный проект интернет-магазина">
+  <meta property="og:description" content="Каталог снастей, корзина, фильтрация, поиск — реализовано на чистом JavaScript.">
+  <meta property="og:image" content="img/preview.jpg">
+  <meta property="og:type" content="website">
 </head>
 <body>
-	<div class="page-blocker">
-	</div>	
-	<div class="loader-wrap">
-	    <img src="/fishing-shop-frontend/img/loader.gif" alt="загрузчик" class="loader">
-    </div>
-	<div class="content" id="up">
-	   <header class="header">
-	   	 <div class="header__wrap" >
-		    <div class="header__logo-wrap">
-		 	   <img src="img/logo.png" alt="логотип сайта" class="header__img">
-		    </div>
-		    <div class="header__contacts">
-		 	   	<span class="header__contact"></span>
-		 	    <span class="header__contact"></span>
-		    </div>
-		 </div>
-		 <form class="header__search-wrap">
-		 	 
-	           <input class="header__search-inp" type="search" placeholder="поиск">
-	           <button class="header__search-btn">&#128269;</button>
-	         
-	         <div class="header__cart-wrap">
-	           <div class="header__cart-count"></div>
-		 	   <img class="header__cart" src="img/cart_2.png" alt="корзина">
-		    </div>	
-		 </form>
-		
-	   </header>
-	   <main class="main">
-		  <section class="hero">
-            <div class="hero__title-wrap">
-            	<img class="hero__title" src="img/title.png" alt="тихая заводь">
-            	<span class="hero__slogan">снасти для тихих побед на воде</span>
-            </div>
-		  	<nav class="nav">
-		  		<button class="nav__item" data-categories="rods"><img src="img/nav-icon1.png"> <span>Удилища</span></button>
-		  		<button class="nav__item" data-categories="reels"><img src="img/nav-icon2.webp"> <span>Приманка</span></button>
-		  		<button class="nav__item" data-categories="lines"><img src="img/nav-icon3.png"> <span>Снасти</span></button>
-		  		<button class="nav__item" data-categories="equipment"><img src="img/nav-icon4.png"> <span>Экипировка</span></button>
-		  		<button class="nav__item" data-categories="accessories"><img src="img/nav-icon5.webp"> <span>Аксессуары</span></button>
-		  	</nav>
-		  </section>
-		  <section class="product-cards">
-		  	<h2 class="product-cards__title">Каталог товаров</h2>
-		  	<div class="product-cards__list">
-		  	</div>	
-		  </section>
-        </main>
-       <footer class="footer">
-       	 <a class="header__up" href="#up">&#8593;</a>
-		 <div class="footer__contacts footer__contacts--media">
-		 	<span class="header__contact"></span>
-		 	<span class="header__contact"></span>
-		 	<span class="header__contact"></span>
-		 </div>
-		 <div class="footer__contacts">
-		 	<a class="footer__contacts-item">о нас</a>
-		 	<a class="footer__contacts-item">FAQ</a>
-		 	<a class="footer__contacts-item" href="admin/admin.html">администраторская</a>
-		 </div>
-	   </footer>
-	   <script  src="index.js" type="module"></script>
-    </div>
+  <div class="page-blocker"></div>
+
+  <div class="loader-wrap">
+    <img src="/fishing-shop-frontend/img/loader.gif" alt="загрузчик" class="loader">
+  </div>
+
+  <div class="content" id="up">
+    <header class="header">
+      <div class="header__wrap">
+        <div class="header__logo-wrap">
+          <img src="img/logo.png" alt="логотип сайта" class="header__img">
+        </div>
+        <div class="header__contacts">
+          <span class="header__contact"></span>
+          <span class="header__contact"></span>
+        </div>
+      </div>
+
+      <form class="header__search-wrap">
+        <input class="header__search-inp" type="search" placeholder="поиск">
+        <button class="header__search-btn">&#128269;</button>
+
+        <div class="header__cart-wrap">
+          <div class="header__cart-count"></div>
+          <img class="header__cart" src="img/cart_2.png" alt="корзина">
+        </div>
+      </form>
+    </header>
+
+    <main class="main">
+      <section class="hero">
+        <div class="hero__title-wrap">
+          <img class="hero__title" src="img/title.png" alt="тихая заводь">
+          <span class="hero__slogan">снасти для тихих побед на воде</span>
+        </div>
+
+        <nav class="nav">
+          <button class="nav__item" data-categories="rods">
+            <img src="img/nav-icon1.png" alt="">
+            <span>Удилища</span>
+          </button>
+          <button class="nav__item" data-categories="reels">
+            <img src="img/nav-icon2.webp" alt="">
+            <span>Приманка</span>
+          </button>
+          <button class="nav__item" data-categories="lines">
+            <img src="img/nav-icon3.png" alt="">
+            <span>Снасти</span>
+          </button>
+          <button class="nav__item" data-categories="equipment">
+            <img src="img/nav-icon4.png" alt="">
+            <span>Экипировка</span>
+          </button>
+          <button class="nav__item" data-categories="accessories">
+            <img src="img/nav-icon5.webp" alt="">
+            <span>Аксессуары</span>
+          </button>
+        </nav>
+      </section>
+
+      <section class="product-cards">
+        <h2 class="product-cards__title">Каталог товаров</h2>
+        <div class="product-cards__list"></div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <a class="header__up" href="#up">&#8593;</a>
+
+      <div class="footer__contacts footer__contacts--media">
+        <span class="header__contact"></span>
+        <span class="header__contact"></span>
+        <span class="header__contact"></span>
+      </div>
+
+      <div class="footer__contacts">
+        <a class="footer__contacts-item">о нас</a>
+        <a class="footer__contacts-item">FAQ</a>
+        <a class="footer__contacts-item" href="admin/admin.html">администраторская</a>
+      </div>
+    </footer>
+
+    <script src="index.js" type="module"></script>
+  </div>
 </body>
 </html>

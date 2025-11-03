@@ -1,11 +1,3 @@
-
-
-
-
-
-
-
-
 export default function countCart() {
 	const order = JSON.parse(localStorage.getItem('order'));
     const countCartEl = document.querySelector('.header__cart-count');

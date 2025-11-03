@@ -1,8 +1,3 @@
-
-
-
-
-
 import animateCart from './animateCart.js';
 import countCart from './countCart.js';
 
@@ -26,7 +21,6 @@ export default function storeOrder(productCardsList, cart) {
           popup.classList.add('product-cards__item-popup-variants--active');
         }
 
-        // 🔹 показываем блокер
         const blocker = document.querySelector('.page-blocker');
         if (blocker) {
           blocker.style.display = 'block';
@@ -59,6 +53,7 @@ export default function storeOrder(productCardsList, cart) {
 
     console.log('Товар добавлен в корзину:', { name, price });
     countCart();
+
     const popupParent = btn.closest('.product-cards__item-popup-variants');
     if (popupParent) {
       setTimeout(() => {
@@ -82,11 +77,9 @@ export default function storeOrder(productCardsList, cart) {
     animateCart(cart);
   });
 
-  // 🔹 Добавляем обработчик на маску
   const blocker = document.querySelector('.page-blocker');
   if (blocker) {
     blocker.addEventListener('click', (e) => {
-      // если клик был не по попапу — закрываем
       if (!e.target.closest('.product-cards__item-popup-variants')) {
         blocker.style.display = 'none';
 

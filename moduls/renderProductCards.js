@@ -6,14 +6,17 @@ export default async function renderProductCards(category, productCardsList, car
     .sort((a, b) => a.title.localeCompare(b.title))
     .map(el => {
       const imgUrl = el.productImg?.formats?.thumbnail?.url
-      ? el.productImg.formats.thumbnail.url
-      : el.productImg?.url || '';
-      // рендерим варианты
+        ? el.productImg.formats.thumbnail.url
+        : el.productImg?.url || '';
+
       let strVariants = '';
       if (Array.isArray(el.variants) && el.variants.length > 0) {
-        strVariants = el.variants.map(variant => (
-          `<button type="button" class="product-cards__show-details-variant-btn">${variant}</button>`
-        )).join('');
+        strVariants = el.variants
+          .map(
+            variant =>
+              `<button type="button" class="product-cards__show-details-variant-btn">${variant}</button>`
+          )
+          .join('');
       }
 
       return `
@@ -21,10 +24,14 @@ export default async function renderProductCards(category, productCardsList, car
           <div class="product-cards__item-popup-variants">
             <div class="product-cards__item-popup-variants-info">${strVariants}</div>
             <div class="product-cards__item-popup-variants-btn">
-                <button class="product-cards__btn">в корзину</button>
+              <button class="product-cards__btn">в корзину</button>
             </div>    
           </div>
-          <img class="product-cards__img" src="${imgUrl}" alt="${el.productImg?.alternativeText || el.title}">
+          <img
+            class="product-cards__img"
+            src="${imgUrl}"
+            alt="${el.productImg?.alternativeText || el.title}"
+          >
           <div class="product-cards__wrap">
             <h2 class="product-cards__name">${el.title}</h2>
             <div class="product-cards__price-wrap">
@@ -33,7 +40,8 @@ export default async function renderProductCards(category, productCardsList, car
             </div>
           </div>
         </div>`;
-    }).join('');
+    })
+    .join('');
 
   document.querySelector('.product-cards__title').textContent = "Каталог товаров";
   productCardsList.innerHTML = productHtml;

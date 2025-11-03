@@ -1,17 +1,4 @@
-
-
-
-
-
-
-
-
-
-
 import { renderTabContent } from '../admin.js';
-
-
-
 
 export default async function switchTab(tab, adminDashboardItems, titleElement, actionsEl) {
     updateTabUI(tab, adminDashboardItems, titleElement, actionsEl);

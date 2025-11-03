@@ -148,7 +148,7 @@ export function setupAddFormHandlers(addForm) {
       addForm.errorSpan.textContent = 'Ошибка добавления товара!!!';
       setTimeout(() => addForm.errorSpan.textContent = '', 2200);
     } finally {
-      loaderOff(addForm.loader); // Hide loader
+      loaderOff(addForm.loader); 
     }
   });
 
@@ -160,7 +160,6 @@ export function handleAddCharacteristic(inputSelector, buttonSelector, actionsSe
   const button = actionsSettings.querySelector(buttonSelector);
   const clearBtn = actionsSettings.querySelector('.actions__characteristics-clear');
 
-  // добавление характеристики
   button.addEventListener('click', () => {
     const value = input.value.trim();
     if (!value) return;
@@ -173,7 +172,6 @@ export function handleAddCharacteristic(inputSelector, buttonSelector, actionsSe
     input.value = '';
   });
 
-  // очистка характеристик
   clearBtn.addEventListener('click', () => {
     localStorage.removeItem('characteristics');
     const list = actionsSettings.querySelector('.actions__characteristics-list');

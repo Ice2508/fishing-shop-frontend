@@ -1,13 +1,4 @@
-
-
-
-
-
-
 import switchTab from './switchTab.js';
-
-
-
 
 export default async function checkTokenExpiration(popupOverlay, adminDashboardItems, titleElement, actionsEl) {
   const tokenTimestamp = localStorage.getItem('tokenTimestamp');

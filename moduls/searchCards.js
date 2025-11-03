@@ -13,10 +13,8 @@ export default function searchCards(searchBtn, productCardsList, navItems) {
       el.title.toLowerCase().includes(searchInp)
     );
 
-    // отображаем найденные
     renderProductCards(null, productCardsList, productSearch);
 
-    // обновляем заголовок
     document.querySelector('.product-cards__title').textContent = "Результаты поиска";
   });
 }

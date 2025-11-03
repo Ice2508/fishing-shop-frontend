@@ -13,7 +13,6 @@ export default async function renderOrder(navItems, productCardsList) {
   navItems.forEach(el => el.classList.remove('nav__item-active'));
   document.querySelector('.product-cards__title').textContent = "Ваш заказ";
 
-  // Загружаем данные из API
   let apiCards = [];
   try {
     apiCards = await loadCards();
@@ -39,32 +38,38 @@ export default async function renderOrder(navItems, productCardsList) {
   const orderHTML = updatedOrder.length === 0
     ? `<li style="padding: 5px">нет выбранных товаров в корзине</li>`
     : updatedOrder.map((el, i) => {
-        const displayName = el.isAvailable ? el.name + ', ' + el.variant : `<span style="color:grey">${el.name} (Нет в наличии)</span>`;
+        const displayName = el.isAvailable
+          ? el.name + ', ' + el.variant
+          : `<span style="color:grey">${el.name} (Нет в наличии)</span>`;
         const displayPrice = el.isAvailable ? el.price : '';
-        return `<li class="order__item" data-index=${i}>
-                  <span class="order__name">${displayName}</span>
-                  <span class="order__price">${displayPrice}</span>
-                  <span class="order__close">&times;</span>
-                </li>`;
+        return `
+          <li class="order__item" data-index=${i}>
+            <span class="order__name">${displayName}</span>
+            <span class="order__price">${displayPrice}</span>
+            <span class="order__close">&times;</span>
+          </li>`;
       }).join('');
-    console.log(updatedOrder);
-   productCardsList.innerHTML = `<section class="order">
-    <ul class="order__list">${orderHTML}</ul>
-    <div class="order__wrap">
-      <div>
-        <label for="adr" class="order__label">адрес доставки</label>
-        <input class="order__input order__input--adress" id="adr" type="text" placeholder="адрес">
+
+  console.log(updatedOrder);
+
+  productCardsList.innerHTML = `
+    <section class="order">
+      <ul class="order__list">${orderHTML}</ul>
+      <div class="order__wrap">
+        <div>
+          <label for="adr" class="order__label">адрес доставки</label>
+          <input class="order__input order__input--adress" id="adr" type="text" placeholder="адрес">
+        </div>
+        <div>
+          <label for="phone" class="order__label">номер телефона</label>
+          <input class="order__input order__input--phone" id="phone" type="number" placeholder="номер телефона">
+        </div>
+        <div class="order__submit">
+          <p class="order__sum">итого: ${sum} ₽</p>
+          <button class="order__btn order__btn--submit">Оформить заказ</button>
+        </div>
       </div>
-      <div>
-        <label for="phone" class="order__label">номер телефона</label>
-        <input class="order__input order__input--phone" id="phone" type="number" placeholder="номер телефона">
-      </div>
-      <div class="order__submit">
-        <p class="order__sum">итого: ${sum} ₽</p>
-        <button class="order__btn order__btn--submit">Оформить заказ</button>
-      </div>
-    </div>
-  </section>`;
+    </section>`;
 
   const addressInput = document.querySelector('.order__input--adress');
   const phoneInput = document.querySelector('.order__input--phone');
@@ -91,20 +96,24 @@ function orderSubmit(btnSubmit, productCardsList) {
     const order = JSON.parse(localStorage.getItem('order')) || [];
     const address = document.querySelector('.order__input--adress').value.trim();
     const phone = document.querySelector('.order__input--phone').value.trim();
+
     console.log(order);
     if (!address || !phone || order.length === 0) return;
 
     try {
       const res = await orderApi(order, address, phone);
       localStorage.removeItem('order');
-      productCardsList.innerHTML = `<section class="order">
-        <div class="order__ok">
-          <p><strong>Заказ №${res.data.id} успешно оформлен✅</strong></p>
-          <p>Обязательно укажите при оплате номер заказа!!!</p>
-          <p><img src="img/vtb.png" alt="втб"><span>2234 5456 4233 3545</span></p>
-          <p><img src="img/psb.png" alt="псб"><span>2455 4336 3434 2325</span></p>
-        </div>
-      </section>`;
+
+      productCardsList.innerHTML = `
+        <section class="order">
+          <div class="order__ok">
+            <p><strong>Заказ №${res.data.id} успешно оформлен✅</strong></p>
+            <p>Обязательно укажите при оплате номер заказа!!!</p>
+            <p><img src="img/vtb.png" alt="втб"><span>2234 5456 4233 3545</span></p>
+            <p><img src="img/psb.png" alt="псб"><span>2455 4336 3434 2325</span></p>
+          </div>
+        </section>`;
+
       console.log(res.data.id);
       countCart();
     } catch (error) {

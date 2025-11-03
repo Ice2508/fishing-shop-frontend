@@ -13,7 +13,6 @@ import renderPrice from './moduls/renderPrice.js';
 import checkTokenExpiration from './moduls/checkTokenExpiration.js';
 import { paginationFn, updatePaginationButtons } from './moduls/pagination.js';
 
-
 export default document.querySelector('.loader-wrap');
 
 const adminDashboardItems = document.querySelectorAll('.admin-dashboard__item');
@@ -26,9 +25,6 @@ const menuIcon = document.querySelector('.admin-dashboard__menu-icon');
 const dashboardList = document.querySelector('.admin-dashboard__list');
 
 let tokenCheckInterval;
-/**
- * Периодическая проверка токена
- */
 
 /**
  * Сбрасывает формы при клике на кнопку закрытия.
@@ -38,6 +34,7 @@ function setupFormReset() {
         console.error('Element actionsSettings not found');
         return;
     }
+
     actionsSettings.addEventListener('click', (event) => {
         if (event.target.classList.contains('actions__btn--close')) {
             event.preventDefault();
@@ -48,28 +45,18 @@ function setupFormReset() {
 }
 
 /**
- * Переключает вкладку и рендерит её содержимое.
- * @param {string} tab - Идентификатор вкладки (data-tab).
- */
-
-/**
- * Сохраняет текущую вкладку в localStorage.
- * @param {string} tab - Идентификатор вкладки (data-tab).
- */
-
-/**
  * Рендерит содержимое вкладки.
  * @param {string} tab - Идентификатор вкладки (data-tab).
  */
 export async function renderTabContent(tab) {
     try {
         let cards = JSON.parse(localStorage.getItem('productList'));
+
         if (tab === 'add') {
             const addForm = renderAddCards(actionsSettings);
             setupAddFormHandlers(addForm);
         } else if (tab === 'delete') {
             await renderDeleteCards(cards, actionsSettings);
-            
             updatePaginationButtons(actionsSettings);
         } else if (tab === 'contacts') {
             const contacts = renderContacts(actionsSettings);
@@ -79,7 +66,6 @@ export async function renderTabContent(tab) {
             updatePaginationButtons(actionsSettings);
         } else if (tab === 'coast') {
             await renderPrice(actionsSettings, cards);
-            
             updatePaginationButtons(actionsSettings);
         } else if (tab === 'order') {
             await renderOrder(actionsSettings);
@@ -105,75 +91,83 @@ function setupTabSwitching() {
 
 function toggleMenu() {
     menuIcon.addEventListener('click', () => {
-         dashboardList.classList.toggle('admin-dashboard__list--block');
-    })
+        dashboardList.classList.toggle('admin-dashboard__list--block');
+    });
 }
-
 
 /**
  * Инициализация страницы.
  */
 document.addEventListener('DOMContentLoaded', async () => {
-  popupOverlay.style.opacity = '1';  
+    popupOverlay.style.opacity = '1';  
 
-  if (tokenCheckInterval) {
-    clearInterval(tokenCheckInterval);
-  }
-  const tokenTimestamp = localStorage.getItem('tokenTimestamp');
-  const minutesInMs = 4 * 60 * 1000;
-  
-  if (tokenTimestamp && Date.now() - parseInt(tokenTimestamp, 10) > minutesInMs) {
-    localStorage.removeItem('token');
-    localStorage.removeItem('tokenTimestamp');
-    popupOverlay.classList.remove('popup__auth-ok');
-  }
+    if (tokenCheckInterval) {
+        clearInterval(tokenCheckInterval);
+    }
 
-  await authAdmin(popupOverlay, adminDashboardItems, titleElement, actionsEl);
-  toggleMenu();
+    const tokenTimestamp = localStorage.getItem('tokenTimestamp');
+    const minutesInMs = 4 * 60 * 1000;
 
-  try {
-    const updatedCards = await loadCards();
-    localStorage.setItem('productList', JSON.stringify(updatedCards));
-    setupFormReset();
-    setupTabSwitching();
-    const savedTab = sessionStorage.getItem('savedTab') || adminDashboardItems[0].dataset.tab;
-    await switchTab(savedTab, adminDashboardItems, titleElement, actionsEl);
-    const renderFunctions = {
-       order: async (container) => await renderOrder(container),
-       delete: async (container) => {
-          const cards = JSON.parse(localStorage.getItem('productList')) || [];
-          await renderDeleteCards(cards, container);
-        },
-        coast: async (container) => {
-        const cards = JSON.parse(localStorage.getItem('productList')) || [];
-        await renderPrice(container, cards);
-        },
-        "toggle-sales": async (container) => {
-        const cards = JSON.parse(localStorage.getItem('productList')) || [];
-        await renderSales(container, cards);
-        },
-        add: async (container) => renderAddCards(container),
-        contacts: async (container) => renderContacts(container)
+    if (tokenTimestamp && Date.now() - parseInt(tokenTimestamp, 10) > minutesInMs) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('tokenTimestamp');
+        popupOverlay.classList.remove('popup__auth-ok');
+    }
+
+    await authAdmin(popupOverlay, adminDashboardItems, titleElement, actionsEl);
+    toggleMenu();
+
+    try {
+        const updatedCards = await loadCards();
+        localStorage.setItem('productList', JSON.stringify(updatedCards));
+
+        setupFormReset();
+        setupTabSwitching();
+
+        const savedTab = sessionStorage.getItem('savedTab') || adminDashboardItems[0].dataset.tab;
+        await switchTab(savedTab, adminDashboardItems, titleElement, actionsEl);
+
+        const renderFunctions = {
+            order: async (container) => await renderOrder(container),
+            delete: async (container) => {
+                const cards = JSON.parse(localStorage.getItem('productList')) || [];
+                await renderDeleteCards(cards, container);
+            },
+            coast: async (container) => {
+                const cards = JSON.parse(localStorage.getItem('productList')) || [];
+                await renderPrice(container, cards);
+            },
+            "toggle-sales": async (container) => {
+                const cards = JSON.parse(localStorage.getItem('productList')) || [];
+                await renderSales(container, cards);
+            },
+            add: async (container) => renderAddCards(container),
+            contacts: async (container) => renderContacts(container)
         };
-     paginationFn(actionsSettings, renderFunctions); 
-    if (!localStorage.getItem('pagination')) {
-       localStorage.setItem('pagination', JSON.stringify({
-          delete: 1,
-          'toggle-sales': 1,
-          coast: 1,
-          order: 1
-        }));
-    }
 
-    // Запускаем периодическую проверку токена каждые 30 секунд
-    tokenCheckInterval = setInterval(() => checkTokenExpiration(popupOverlay, adminDashboardItems, titleElement, actionsEl), 240000);
-    
-  } catch (error) {
-    console.error('Ошибка при инициализации:', error);
-    const errorSpan = actionsSettings.querySelector('.error-message');
-    if (errorSpan) {
-      errorSpan.textContent = 'Ошибка при загрузке данных. Попробуйте снова.';
-         setTimeout(() => errorSpan.textContent = '', 2200);
+        paginationFn(actionsSettings, renderFunctions); 
+
+        if (!localStorage.getItem('pagination')) {
+            localStorage.setItem('pagination', JSON.stringify({
+                delete: 1,
+                'toggle-sales': 1,
+                coast: 1,
+                order: 1
+            }));
+        }
+
+        // Запускаем периодическую проверку токена 
+        tokenCheckInterval = setInterval(() => 
+            checkTokenExpiration(popupOverlay, adminDashboardItems, titleElement, actionsEl), 
+            240000
+        );
+
+    } catch (error) {
+        console.error('Ошибка при инициализации:', error);
+        const errorSpan = actionsSettings.querySelector('.error-message');
+        if (errorSpan) {
+            errorSpan.textContent = 'Ошибка при загрузке данных. Попробуйте снова.';
+            setTimeout(() => errorSpan.textContent = '', 2200);
+        }
     }
-  }
 });

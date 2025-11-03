@@ -1,44 +1,52 @@
 import renderProductCards from './renderProductCards.js';
 
-
-
 export default function showCardDetails(productCardsList, cardsArray, cart, navItems, productCardsTitle) {
   productCardsList.addEventListener('click', (event) => {
     if (!event.target.closest('.product-cards__show-details-variant-btn')) {
       localStorage.removeItem('variant');
     }
+
     if (event.target.closest('.product-cards__show-details-variant-btn')) return;
+
     window.scrollTo(0, 200);
+
     const navActive = localStorage.getItem('nav-active');
     if (navActive) navItems[navActive].classList.remove('nav__item-active');
+
     const card = event.target.closest('.product-cards__item');
     if (!card) return; // клик вне карточки
     if (event.target.closest('.product-cards__btn')) return;
+
     const currentCategory = localStorage.getItem('category') || 'default';
     const scrollPosition = window.scrollY;
     sessionStorage.setItem('scroll-position', scrollPosition);
     localStorage.setItem('category', currentCategory);
+
     const cardId = card.dataset.id;
     const selectedCard = cardsArray.find(card => card.id === +cardId);
     const BASE_URL = 'http://localhost:1337';
-    console.log(selectedCard)
+
+    console.log(selectedCard);
 
     const imgUrl = selectedCard.productImg?.formats?.small?.url
-    ? selectedCard.productImg.formats.small.url
-    : selectedCard.productImg?.url || '';  
+      ? selectedCard.productImg.formats.small.url
+      : selectedCard.productImg?.url || '';
+
     console.log(imgUrl);
     console.log('Клик по карточке:', card);
+
     let characteristicsHtml = '';
     if (selectedCard.characteristics) {
-        characteristicsHtml = selectedCard.characteristics.map(el => {
-          return `<li>${el}</li>`;
-        }).join('');
+      characteristicsHtml = selectedCard.characteristics
+        .map(el => `<li>${el}</li>`)
+        .join('');
     }
+
     let variantsHtml = '';
     if (selectedCard.variants && selectedCard.variants.length > 0) {
-        variantsHtml = selectedCard.variants.map(variant => {
-        return `<button type="button" class="product-cards__show-details-variant-btn">${variant}</button>`;
-      }).join('');
+      variantsHtml = selectedCard.variants
+        .map(variant => `<button type="button" class="product-cards__show-details-variant-btn">${variant}</button>`)
+        .join('');
     }
 
     productCardsTitle.innerHTML = `${selectedCard.title}`;
@@ -60,12 +68,14 @@ export default function showCardDetails(productCardsList, cardsArray, cart, navI
         </div>
       </section>
     `;
+
     const variantsBtn = document.querySelectorAll('.product-cards__show-details-variant-btn');
     if (variantsBtn.length > 0) {
-       variantsBtn[0].classList.add('product-cards__show-details-variant-btn--active');
-       localStorage.setItem('variant', variantsBtn[0].textContent);
+      variantsBtn[0].classList.add('product-cards__show-details-variant-btn--active');
+      localStorage.setItem('variant', variantsBtn[0].textContent);
     }
-    variantsBtnState(variantsBtn)
+    variantsBtnState(variantsBtn);
+
     // Выбираем кнопку закрытия после рендеринга
     const showDetailsClose = document.querySelector('.product-cards__show-details-close');
     if (showDetailsClose) {
@@ -78,34 +88,42 @@ export default function showCardDetails(productCardsList, cardsArray, cart, navI
 }
 
 export function variantsBtnState(variantsBtn) {
-   variantsBtn.forEach(btn => {
-      btn.addEventListener('click', () => {
-        variantsBtn.forEach(btn => {
-          btn.classList.remove('product-cards__show-details-variant-btn--active');
-          localStorage.removeItem('variant');
-        })
-        btn.classList.add('product-cards__show-details-variant-btn--active');
-        const variant =  btn.textContent;
-        localStorage.setItem('variant', variant)
-      })
-   })
+  variantsBtn.forEach(btn => {
+    btn.addEventListener('click', () => {
+      variantsBtn.forEach(btn => {
+        btn.classList.remove('product-cards__show-details-variant-btn--active');
+        localStorage.removeItem('variant');
+      });
+      btn.classList.add('product-cards__show-details-variant-btn--active');
+      const variant = btn.textContent;
+      localStorage.setItem('variant', variant);
+    });
+  });
 }
 
 function showCardDetailsClose(showDetailsClose, productCardsList, cardsArray, navItems, productCardsTitle) {
   showDetailsClose.addEventListener('click', async () => {
     console.log('Клик по кнопке закрытия');
+
     const currentCategory = localStorage.getItem('category') || 'rods';
     console.log('Восстанавливаем категорию:', currentCategory);
+
     const navActive = localStorage.getItem('nav-active');
     if (navActive) {
-      setTimeout(() => { navItems[navActive].classList.add('nav__item-active'); }, 0);
+      setTimeout(() => {
+        navItems[navActive].classList.add('nav__item-active');
+      }, 0);
     }
+
     window.location.hash = currentCategory;
     console.log('Устанавливаем хэш:', currentCategory);
+
     await renderProductCards(currentCategory, productCardsList, cardsArray);
     console.log('Рендеринг карточек завершен для категории:', currentCategory);
+
     const scrollPosition = parseInt(sessionStorage.getItem('scroll-position'), 10) || 0;
     console.log('Восстанавливаем позицию скролла:', scrollPosition);
+
     document.documentElement.style.scrollBehavior = 'auto';
     setTimeout(() => {
       window.scrollTo(0, scrollPosition);

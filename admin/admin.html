@@ -1,67 +1,60 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>админ-панель</title>
-	<link rel="stylesheet" href="../style.css">
-	<link rel="stylesheet" href="admin.css">
-	
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Админ-панель интернет-магазина: управление товарами и заказами">
+    <meta name="author" content="Сергей Хрящев">
+    <title>админ-панель</title>
+    <link rel="icon" type="image/png" href="../img/favicon.png">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="admin.css">
 </head>
 <body>
-	<div class="popup__overlay">
-		<section class="popup">
-			<h3 class="popup__title">Вход администраторская</h3>
-			<div class="popup__inp-wrap">
-				<p class="popup__no-auth">неверный логин или пароль!!!</p>
-			    <input type="text" class="popup__inp" placeholder="логин">
-			    <input type="password" class="popup__inp" placeholder="пароль">
-		    </div>
-			<div class="popup__btn-wrap">
-			    <button class="popup__btn">отмена</button>
-			    <button class="popup__btn">вход</button>
-		    </div>
-		</section>
-	</div>	
-	<div class="loader-wrap">
-	    <img src="../img/loader.gif" alt="загрузчик" class="loader">
-    </div>
-	<div class="wrap">
-		<section class="admin-dashboard">
-			<div class="admin-dashboard__wrap">
-			<div class="admin-dashboard__nav-wrap">	
-			   <img class="admin-dashboard__menu-icon" src="../img/menu-icon.png" alt="меню">
-			   <h2 class="admin-dashboard__title">Администраторская &#9881;</h2>
-		    </div>
-			  <ul class="admin-dashboard__list">
-			  	  <li class="admin-dashboard__item" data-tab="add">
-			  	 	добавление товара 
-			  	 </li>
-			  	 <li class="admin-dashboard__item" data-tab="delete">
-			  	    удаление товара  
-			  	 </li>
-			  	 <li class="admin-dashboard__item" data-tab="coast">
-			  	 	стоимость товара
-			  	 </li>
-			  	  <li class="admin-dashboard__item" data-tab="toggle-sales">
-			  	 	открытие / закрытие продаж
-			  	 </li>
-			  	  <li class="admin-dashboard__item" data-tab="contacts">
-			  	 	 измение контактов
-			  	 </li>
-			  	  <li class="admin-dashboard__item" data-tab="order">
-			  	 	 заказы
-			  	 </li>
-			  </ul>
-			  </div>
-		</section>
-		<section class="actions">
-			<h1 class="actions__title">Настройки</h1>
-			<h2 class="actions__current-action"></h2>
-			<div class="actions__settings"></div>
+    <div class="popup__overlay">
+        <section class="popup">
+            <h3 class="popup__title">Вход администраторская</h3>
+            <div class="popup__inp-wrap">
+                <p class="popup__no-auth">неверный логин или пароль!!!</p>
+                <input type="text" class="popup__inp" placeholder="логин">
+                <input type="password" class="popup__inp" placeholder="пароль">
+            </div>
+            <div class="popup__btn-wrap">
+                <button class="popup__btn">отмена</button>
+                <button class="popup__btn">вход</button>
+            </div>
+        </section>
+    </div>  
 
-		</section>
-	</div>
-	<script src="admin.js" type="module"></script>
+    <div class="loader-wrap">
+        <img src="../img/loader.gif" alt="загрузчик" class="loader">
+    </div>
+
+    <div class="wrap">
+        <section class="admin-dashboard">
+            <div class="admin-dashboard__wrap">
+                <div class="admin-dashboard__nav-wrap">    
+                    <img class="admin-dashboard__menu-icon" src="../img/menu-icon.png" alt="меню">
+                    <h2 class="admin-dashboard__title">Администраторская &#9881;</h2>
+                </div>
+                <ul class="admin-dashboard__list">
+                    <li class="admin-dashboard__item" data-tab="add">добавление товара</li>
+                    <li class="admin-dashboard__item" data-tab="delete">удаление товара</li>
+                    <li class="admin-dashboard__item" data-tab="coast">стоимость товара</li>
+                    <li class="admin-dashboard__item" data-tab="toggle-sales">открытие / закрытие продаж</li>
+                    <li class="admin-dashboard__item" data-tab="contacts">измение контактов</li>
+                    <li class="admin-dashboard__item" data-tab="order">заказы</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="actions">
+            <h1 class="actions__title">Настройки</h1>
+            <h2 class="actions__current-action"></h2>
+            <div class="actions__settings"></div>
+        </section>
+    </div>
+
+    <script src="admin.js" type="module"></script>
 </body>
 </html>
